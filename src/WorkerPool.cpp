@@ -10,7 +10,7 @@ namespace SimpleWorker
 {
 WorkerPool::WorkerPool()
 {
-   startWorker();
+   start();
 }
 
 void WorkerPool::addWorker(Worker* const worker)

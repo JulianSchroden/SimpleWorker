@@ -38,17 +38,17 @@ public:
    //!
    //! Start the Worker.
    //!
-   void startWorker();
+   void start();
 
    //!
    //! Pause the Worker.
    //!
-   void pauseWorker();
+   void pause();
 
    //!
    //! Terminate the Worker.
    //!
-   void terminateWorker();
+   void terminate();
 
    //!
    //! Get the WorkerState of the Worker.

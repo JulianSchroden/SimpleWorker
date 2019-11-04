@@ -29,7 +29,7 @@ Worker::Worker() {}
 
 Worker::~Worker()
 {
-   terminateWorker();
+   terminate();
 }
 
 void Worker::setWorkerPool(WorkerPool* workerPool)
@@ -37,7 +37,7 @@ void Worker::setWorkerPool(WorkerPool* workerPool)
    workerPool_ = workerPool;
 }
 
-void Worker::startWorker()
+void Worker::start()
 {
    if (workerState_ == WorkerState::Initial ||
        workerState_ == WorkerState::Paused)
@@ -46,7 +46,7 @@ void Worker::startWorker()
    }
 }
 
-void Worker::pauseWorker()
+void Worker::pause()
 {
    if (workerState_ == WorkerState::Running)
    {
@@ -54,7 +54,7 @@ void Worker::pauseWorker()
    }
 }
 
-void Worker::terminateWorker()
+void Worker::terminate()
 {
    workerState_ = WorkerState::Terminated;
    workerPool_->removeWorker(this);
