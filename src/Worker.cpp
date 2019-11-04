@@ -1,4 +1,11 @@
+/**
+ *  Copyright (c) 2017-2019 Julian Schroden. All rights reserved.
+ *  Licensed under the MIT License. See LICENSE file in the project root for
+ *  full license information.
+ */
+
 #include <SimpleWorker/Worker.h>
+#include <SimpleWorker/WorkerPool.h>
 
 namespace SimpleWorker
 {
@@ -15,9 +22,20 @@ const char* toString(WorkerState workerState)
       CASE(Terminated);
    }
 #undef CASE
+   return "";
 }
 
 Worker::Worker() {}
+
+Worker::~Worker()
+{
+   terminateWorker();
+}
+
+void Worker::setWorkerPool(WorkerPool* workerPool)
+{
+   workerPool_ = workerPool;
+}
 
 void Worker::startWorker()
 {
@@ -39,11 +57,12 @@ void Worker::pauseWorker()
 void Worker::terminateWorker()
 {
    workerState_ = WorkerState::Terminated;
+   workerPool_->removeWorker(this);
 }
 
 WorkerState Worker::state() const
 {
-    return workerState_;
+   return workerState_;
 }
 
 }  // namespace SimpleWorker

@@ -19,12 +19,21 @@ enum class WorkerState
 
 const char* toString(WorkerState workerState);
 
+class WorkerPool;
+
 class Worker
 {
 public:
    Worker();
 
-   virtual ~Worker() = default;
+   virtual ~Worker();
+
+   //!
+   //! Setter for the managing \a workerPool.
+   //! This is required so that the Worker can unregister itself when beeing
+   //! destroyed.
+   //!
+   void setWorkerPool(WorkerPool* workerPool);
 
    //!
    //! Start the Worker.
@@ -55,6 +64,7 @@ public:
 
 private:
    WorkerState workerState_ = WorkerState::Initial;
+   WorkerPool* workerPool_;
 };
 }  // namespace SimpleWorker
 
